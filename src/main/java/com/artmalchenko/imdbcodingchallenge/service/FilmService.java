@@ -4,7 +4,6 @@ import com.artmalchenko.imdbcodingchallenge.dto.FilmDto;
 import com.artmalchenko.imdbcodingchallenge.entity.FilmEntity;
 import com.artmalchenko.imdbcodingchallenge.repository.FilmRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,14 +13,17 @@ import java.util.stream.Collectors;
 @Service
 public class FilmService {
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    private FilmRepository filmRepository;
+    private final FilmRepository filmRepository;
+
+    public FilmService(ModelMapper modelMapper, FilmRepository filmRepository) {
+        this.modelMapper = modelMapper;
+        this.filmRepository = filmRepository;
+    }
 
     public List<FilmDto> findAllFilms() {
-        List<FilmEntity> entities = filmRepository.findAll();
+        List<FilmEntity> entities = (List<FilmEntity>) filmRepository.findAll();
 
         List<FilmDto> dtos = entities
                 .stream()

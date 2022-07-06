@@ -7,6 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RatingRepository extends CrudRepository<RatingEntity, Long> {
 
-    RatingEntity save(RatingEntity ratingEntity);
-
 }

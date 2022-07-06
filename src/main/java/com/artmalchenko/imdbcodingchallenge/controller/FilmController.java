@@ -3,7 +3,6 @@ package com.artmalchenko.imdbcodingchallenge.controller;
 import com.artmalchenko.imdbcodingchallenge.controller.api.FilmControllerApi;
 import com.artmalchenko.imdbcodingchallenge.dto.FilmDto;
 import com.artmalchenko.imdbcodingchallenge.service.FilmService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +13,11 @@ import java.util.Optional;
 @RestController
 public class FilmController implements FilmControllerApi {
 
-    @Autowired
-    private FilmService filmService;
+    private final FilmService filmService;
+
+    public FilmController(FilmService filmService) {
+        this.filmService = filmService;
+    }
 
     @GetMapping(value = "/films", params = "title")
     public ResponseEntity<FilmDto> findFilmByTitle(@RequestParam String title) {
